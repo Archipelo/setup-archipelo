@@ -1,0 +1,10 @@
+name: setup-archipelo
+description: Setup Archipelo CLI on GitHub Actions runners
+inputs:
+  version:
+    description: Version of Archipelo CLI to install
+    required: false
+    default: 1.0.0
+runs:
+  using: node12
+  main: dist/index.js

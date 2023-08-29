@@ -1,0 +1,44 @@
+name: Tests
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  test:
+    name: Test
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-latest,  ubuntu-latest]
+        version: [d7eceb6b08badd771b0b4d236ec43720284ef6a6]
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Setup Archipelo
+      uses: ./
+      with:
+        version: ${{ matrix.version }}
+
+    - name: Capture archipelo version installed
+      run: |
+        export AR_VERSION=$( archipelo version )
+        echo 'AR_VERSION_INSTALLED<<EOF' >> $GITHUB_ENV
+        archipelo version >> $GITHUB_ENV
+        echo 'EOF' >> $GITHUB_ENV
+
+    - name: Verify
+      shell: python
+      env:
+        AR_VERSION_EXPECTED: ${{ matrix.version }}
+      run: |
+        import sys, os
+        sys.exit(
+            int(not os.environ["AR_VERSION_EXPECTED"] in os.environ["AR_VERSION_INSTALLED"])
+        )
