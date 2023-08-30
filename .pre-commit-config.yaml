@@ -11,7 +11,7 @@ repos:
     hooks:
       - id: end-of-file-fixer
         name: Ensure 1 blank line at the end of the files
-        exclude: '.*[\.drawio|\.xml|\.sql|\.txt|\.svg|\.nvmrc]$'
+        exclude: '.*[\.drawio|\.xml|\.sql|\.txt|\.svg|\.nvmrc|\.js.map]$'
       - id: trailing-whitespace
         name: Remove trailing whitespaces
         exclude: |
@@ -19,6 +19,7 @@ repos:
               .*[\.sql|\.http|\.go]$|
               .*/_fixtures/.*|
               .*mocks.*|
+              .*dist.*|
               .*/tests/fixtures/.*|
           )$
       - id: check-merge-conflict
@@ -37,7 +38,7 @@ repos:
     hooks:
       - id: remove-tabs
         name: Change tabs to spaces
-        args: [--whitespaces-count, '2']
+        args: [--whitespaces-count, "2"]
         exclude: |
           (?x)^(
               .*[\.go|\.svg]$|

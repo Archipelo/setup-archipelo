@@ -6,7 +6,6 @@ This action sets up the archipelo command line for use in GitHub Actions.
 
 See [action.yml](action.yml)
 
-
 ### Basic
 
 ```yaml
@@ -20,9 +19,9 @@ steps:
 
 ## Development
 
-1. Install the project  
-`npm install`
-2. Edit the code
-3. Package the new code  
-`npm run all`
-4. Push your code to a feature branch for review
+1. Install the project
+   `npm install`
+1. Edit the code
+1. Package the new code
+   `npm run all`
+1. Push your code to a feature branch for review
