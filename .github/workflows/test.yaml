@@ -19,7 +19,7 @@ jobs:
         version: [d7eceb6b08badd771b0b4d236ec43720284ef6a6]
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Setup Archipelo
       uses: ./
