@@ -26,6 +26,9 @@ jobs:
         with:
           version: ${{ matrix.version }}
 
+      - name: Show folder
+        run: ls -lsa
+
       - name: Capture archipelo version installed
         run: |
           export AR_VERSION=$( archipelo version )
