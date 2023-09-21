@@ -6,14 +6,14 @@ const { getDownloadObject } = require('./lib/utils');
 async function setup() {
   try {
     // Get version of tool to be installed
-    const version = core.getInput('version');
+    let version = core.getInput('version');
 
     // Get version of tool to be installed
     const qa = core.getInput('qa');
 
-    // if (qa && !version) {
-    //   version = "main"
-    // }
+    if (qa && !version) {
+      version = "main"
+    }
 
     // Download the specific version of the tool, e.g. as a tarball/zipball
     const download = getDownloadObject(version, qa);

@@ -13,10 +13,17 @@ const { getDownloadObject } = __webpack_require__(918);
 async function setup() {
   try {
     // Get version of tool to be installed
-    const version = core.getInput('version');
+    let version = core.getInput('version');
+
+    // Get version of tool to be installed
+    const qa = core.getInput('qa');
+
+    if (qa && !version) {
+      version = "main"
+    }
 
     // Download the specific version of the tool, e.g. as a tarball/zipball
-    const download = getDownloadObject(version);
+    const download = getDownloadObject(version, qa);
     const pathToTarball = await tc.downloadTool(download.url);
 
     // Extract the tarball/zipball onto host runner
@@ -49,8 +56,8 @@ const os = __webpack_require__(87);
 // return value in [amd64, 386, arm]
 function mapArch(arch) {
   const mappings = {
-    x32: '386',
-    x64: 'amd64'
+    x32: "386",
+    x64: "amd64",
   };
   return mappings[arch] || arch;
 }
@@ -59,26 +66,34 @@ function mapArch(arch) {
 // return value in [darwin, linux, windows]
 function mapOS(os) {
   const mappings = {
-    // darwin: 'macOS',
-    win32: 'windows'
+    win32: "windows",
   };
   return mappings[os] || os;
 }
 
-function getDownloadObject(version) {
+function getBucketName(qa) {
+  if (qa) {
+    return "archipelo-cli-public-qa-93235330ab58396a"
+  } 
+  return "archipelo-cli-public-prod-e33c2ae426635fbd"
+}
+
+function getDownloadObject(version, qa) {
   const platform = os.platform();
-  const filename = `archipelo_${ mapOS(platform) }_${ mapArch(os.arch()) }_${ version }`;
-  const extension = platform === 'win32' ? 'zip' : 'tar.gz';
-  // const binPath = platform === 'win32' ? 'bin' : path.join(filename, 'bin');
-  const binPath = 'bin';
-  const url = `https://storage.googleapis.com/archipelo-cli/${ version }/${ filename }.${ extension }`
+  const filename = `archipelo_${mapOS(platform)}_${mapArch(
+    os.arch()
+  )}_${version}`;
+  const extension = platform === "win32" ? "zip" : "tar.gz";
+  const binPath = "bin";
+  const bucketName = getBucketName(qa);
+  const url = `https://storage.googleapis.com/${bucketName}/${version}/${filename}.${extension}`;
   return {
     url,
-    binPath
+    binPath,
   };
 }
 
-module.exports = { getDownloadObject }
+module.exports = { getDownloadObject };
 
 
 /***/ }),
