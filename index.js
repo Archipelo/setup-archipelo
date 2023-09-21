@@ -1,15 +1,15 @@
-const path = require('path');
-const core = require('@actions/core');
-const tc = require('@actions/tool-cache');
-const { getDownloadObject } = require('./lib/utils');
+import { join } from 'path';
+import { getInput, setFailed, info, addPath } from '@actions/core';
+import { downloadTool, extractZip, extractTar } from '@actions/tool-cache';
+import { getDownloadObject } from './lib/utils';
 
 async function setup() {
   try {
     // Get version of tool to be installed
-    let version = core.getInput('version');
+    let version = getInput('version');
 
     // Get version of tool to be installed
-    const qa = core.getInput('qa');
+    const qa = getInput('qa');
 
     if (qa && !version) {
       version = "main"
@@ -17,23 +17,25 @@ async function setup() {
 
     // Download the specific version of the tool, e.g. as a tarball/zipball
     const download = getDownloadObject(version, qa);
-    const pathToTarball = await tc.downloadTool(download.url);
-    core.setFailed(pathToTarball)
+    const pathToTarball = await downloadTool(download.url);
+    setFailed(pathToTarball)
 
     // Extract the tarball/zipball onto host runner
-    const extract = download.url.endsWith('.zip') ? tc.extractZip : tc.extractTar;
+    const extract = download.url.endsWith('.zip') ? extractZip : extractTar;
     const pathToCLI = await extract(pathToTarball);
-    core.info(pathToCLI)
+    info(pathToCLI)
 
     // Expose the tool by adding it to the PATH
-    core.addPath(path.join(pathToCLI, download.binPath));
+    addPath(join(pathToCLI, download.binPath));
   } catch (e) {
-    core.setFailed(e);
+    setFailed(e);
   }
 }
 
-module.exports = setup
+// export default setup
 
-if (require.main === module) {
-  setup();
-}
+// if (require.main === module) {
+//   setup();
+// }
+
+setup();
