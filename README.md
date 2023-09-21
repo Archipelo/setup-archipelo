@@ -21,12 +21,7 @@ steps:
 
 1. Install the project
    `npm install`
-2. Edit the code
-3. Package the new code
+1. Edit the code
+1. Package the new code
    `npm run all`
-4. Push your code to a feature branch for review
-
-
-
-
-
+1. Push your code to a feature branch for review
