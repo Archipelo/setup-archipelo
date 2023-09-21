@@ -18,12 +18,12 @@ async function setup() {
     // Download the specific version of the tool, e.g. as a tarball/zipball
     const download = getDownloadObject(version, qa);
     const pathToTarball = await tc.downloadTool(download.url);
-    core.debug(pathToTarball)
+    core.info(pathToTarball)
 
     // Extract the tarball/zipball onto host runner
     const extract = download.url.endsWith('.zip') ? tc.extractZip : tc.extractTar;
     const pathToCLI = await extract(pathToTarball);
-    core.debug(pathToCLI)
+    core.info(pathToCLI)
 
     // Expose the tool by adding it to the PATH
     core.addPath(path.join(pathToCLI, download.binPath));
