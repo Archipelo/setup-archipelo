@@ -5,7 +5,7 @@ require('./sourcemap-register.js');module.exports =
 /***/ 932:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-const path = __webpack_require__(622);
+// const path = require('path');
 const core = __webpack_require__(186);
 const tc = __webpack_require__(784);
 const { getDownloadObject } = __webpack_require__(918);
@@ -34,7 +34,8 @@ async function setup() {
     core.info("download.binPath " + download.binPath)
 
     // Expose the tool by adding it to the PATH
-    core.addPath(path.join(pathToCLI, download.binPath));
+    // core.addPath(path.join(pathToCLI, download.binPath));
+    core.addPath(pathToCLI);
   } catch (e) {
     core.setFailed(e);
   }

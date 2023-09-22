@@ -1,4 +1,4 @@
-const path = require('path');
+// const path = require('path');
 const core = require('@actions/core');
 const tc = require('@actions/tool-cache');
 const { getDownloadObject } = require('./lib/utils');
@@ -27,7 +27,8 @@ async function setup() {
     core.info("download.binPath " + download.binPath)
 
     // Expose the tool by adding it to the PATH
-    core.addPath(path.join(pathToCLI, download.binPath));
+    // core.addPath(path.join(pathToCLI, download.binPath));
+    core.addPath(pathToCLI);
   } catch (e) {
     core.setFailed(e);
   }
