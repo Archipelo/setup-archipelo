@@ -16,7 +16,8 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        version: [v0.6.85]
+        # version: [v0.6.85]
+        version: [d7eceb6b08badd771b0b4d236ec43720284ef6a6]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -28,6 +29,9 @@ jobs:
 
       - name: Show folder
         run: ls -lsa
+
+      - name: Run version
+        run: archipelo version
 
       - name: Capture archipelo version installed
         run: |

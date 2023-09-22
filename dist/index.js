@@ -25,12 +25,12 @@ async function setup() {
     // Download the specific version of the tool, e.g. as a tarball/zipball
     const download = getDownloadObject(version, qa);
     const pathToTarball = await tc.downloadTool(download.url);
-    core.info(pathToTarball)
+    core.info("pathToTarball " + pathToTarball)
 
     // Extract the tarball/zipball onto host runner
     const extract = download.url.endsWith('.zip') ? tc.extractZip : tc.extractTar;
-    const pathToCLI = await extract(pathToTarball);
-    core.info(pathToCLI)
+    const pathToCLI = await extract(pathToTarball, "./");
+    core.info("pathToCLI " + pathToCLI)
 
     // Expose the tool by adding it to the PATH
     core.addPath(path.join(pathToCLI, download.binPath));
@@ -88,7 +88,9 @@ function getDownloadObject(version, qa) {
   const extension = platform === "win32" ? "zip" : "tar.gz";
   const binPath = "bin";
   const bucketName = getBucketName(qa);
-  const url = `https://storage.googleapis.com/${bucketName}/${version}/${filename}.${extension}`;
+  console.log(bucketName);
+  // const url = `https://storage.googleapis.com/${bucketName}/${version}/${filename}.${extension}`;
+  const url = `https://storage.googleapis.com/archipelo-cli/${version}/${filename}.${extension}`;
   return {
     url,
     binPath,
