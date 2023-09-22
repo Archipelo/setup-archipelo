@@ -25,7 +25,8 @@ jobs:
       - name: Setup Archipelo
         uses: ./
         with:
-          version: ${{ matrix.version }}
+          # version: ${{ matrix.version }}
+          qa: true
 
       - name: Show folder
         run: ls -lsa
