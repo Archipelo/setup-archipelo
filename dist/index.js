@@ -33,7 +33,7 @@ async function setup() {
     core.addPath(pathToCLI);
 
     // Make it executable
-    await exec.exec(`chmod +x ${pathToCLI}`);
+    await exec.exec(`chmod +x ${pathToCLI}/archipelo`);
   } catch (e) {
     core.setFailed(e);
   }
