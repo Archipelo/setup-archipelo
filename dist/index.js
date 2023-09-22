@@ -88,9 +88,8 @@ function getDownloadObject(version, qa) {
   const extension = platform === "win32" ? "zip" : "tar.gz";
   const binPath = "bin";
   const bucketName = getBucketName(qa);
-  console.log(bucketName);
-  // const url = `https://storage.googleapis.com/${bucketName}/${version}/${filename}.${extension}`;
-  const url = `https://storage.googleapis.com/archipelo-cli/${version}/${filename}.${extension}`;
+  const url = `https://storage.googleapis.com/${bucketName}/${version}/${filename}.${extension}`;
+  console.log("url", url);
   return {
     url,
     binPath,
