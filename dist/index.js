@@ -5,7 +5,7 @@ require('./sourcemap-register.js');module.exports =
 /***/ 932:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-// const path = require('path'); 
+const exec = __webpack_require__(514);
 const core = __webpack_require__(186);
 const tc = __webpack_require__(784);
 const { getDownloadURL } = __webpack_require__(918);
@@ -31,6 +31,9 @@ async function setup() {
     // Expose the tool by adding it to the PATH
     // core.addPath(path.join(pathToCLI, download.binPath));
     core.addPath(pathToCLI);
+
+    // Make it executable
+    await exec.exec(`chmod +x ${pathToCLI}`);
   } catch (e) {
     core.setFailed(e);
   }
@@ -94,7 +97,7 @@ module.exports = { getDownloadURL };
 
 /***/ }),
 
-/***/ 351:
+/***/ 241:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -228,7 +231,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.getIDToken = exports.getState = exports.saveState = exports.group = exports.endGroup = exports.startGroup = exports.info = exports.notice = exports.warning = exports.error = exports.debug = exports.isDebug = exports.setFailed = exports.setCommandEcho = exports.setOutput = exports.getBooleanInput = exports.getMultilineInput = exports.getInput = exports.addPath = exports.setSecret = exports.exportVariable = exports.ExitCode = void 0;
-const command_1 = __webpack_require__(351);
+const command_1 = __webpack_require__(241);
 const file_command_1 = __webpack_require__(717);
 const utils_1 = __webpack_require__(278);
 const os = __importStar(__webpack_require__(87));
@@ -2330,7 +2333,7 @@ const os = __importStar(__webpack_require__(87));
 const events = __importStar(__webpack_require__(614));
 const child = __importStar(__webpack_require__(129));
 const path = __importStar(__webpack_require__(622));
-const io = __importStar(__webpack_require__(436));
+const io = __importStar(__webpack_require__(351));
 const ioUtil = __importStar(__webpack_require__(962));
 /* eslint-disable @typescript-eslint/unbound-method */
 const IS_WINDOWS = process.platform === 'win32';
@@ -3721,7 +3724,7 @@ function isUnixExecutable(stats) {
 
 /***/ }),
 
-/***/ 436:
+/***/ 351:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -4234,7 +4237,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__webpack_require__(186));
-const io = __importStar(__webpack_require__(436));
+const io = __importStar(__webpack_require__(351));
 const fs = __importStar(__webpack_require__(747));
 const mm = __importStar(__webpack_require__(473));
 const os = __importStar(__webpack_require__(87));

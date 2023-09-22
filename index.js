@@ -1,4 +1,4 @@
-// const path = require('path'); 
+const exec = require('@actions/exec');
 const core = require('@actions/core');
 const tc = require('@actions/tool-cache');
 const { getDownloadURL } = require('./lib/utils');
@@ -24,6 +24,9 @@ async function setup() {
     // Expose the tool by adding it to the PATH
     // core.addPath(path.join(pathToCLI, download.binPath));
     core.addPath(pathToCLI);
+
+    // Make it executable
+    await exec.exec(`chmod +x ${pathToCLI}`);
   } catch (e) {
     core.setFailed(e);
   }
