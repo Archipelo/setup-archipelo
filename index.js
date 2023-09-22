@@ -1,7 +1,7 @@
 // const path = require('path'); 
 const core = require('@actions/core');
 const tc = require('@actions/tool-cache');
-const { getDownloadObject } = require('./lib/utils');
+const { getDownloadURL } = require('./lib/utils');
 
 async function setup() {
   try {
@@ -12,15 +12,14 @@ async function setup() {
     const qa = core.getInput('qa');
 
     // Download the specific version of the tool, e.g. as a tarball/zipball
-    const download = getDownloadObject(version, qa);
-    const pathToTarball = await tc.downloadTool(download.url);
+    const url = getDownloadURL(version, qa);
+    const pathToTarball = await tc.downloadTool(url);
     core.info("pathToTarball " + pathToTarball)
 
     // Extract the tarball/zipball onto host runner
-    const extract = download.url.endsWith('.zip') ? tc.extractZip : tc.extractTar;
+    const extract = url.endsWith('.zip') ? tc.extractZip : tc.extractTar;
     const pathToCLI = await extract(pathToTarball);
     core.info("pathToCLI " + pathToCLI)
-    core.info("download.binPath " + download.binPath)
 
     // Expose the tool by adding it to the PATH
     // core.addPath(path.join(pathToCLI, download.binPath));
